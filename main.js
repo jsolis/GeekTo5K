@@ -1,12 +1,28 @@
 chrome.runtime.onInstalled.addListener(function() {
-	// Gets this apps channelId which is tied to the user/appId
+	// Gets this apps channelId which is tied to the user/appId and registers it
+	// with the server compontent for push messages
 	chrome.pushMessaging.getChannelId(false, function (channelId) {
-		// TODO: Call server component with channelId to save for future push sends
-		console.log("channelId obtained: " + channelId.channelId);
-		// POST to http://[DOMAIN]/register/
 		var registerData = {channelId: channelId.channelId};
 		var registerPayload = JSON.stringify(registerData);
-		console.log(registerPayload);
+		console.log("Register Payload: " + registerPayload);
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function() {
+			if (xhr.readyState == 4 && xhr.status == 200) {
+				var responseText = xhr.responseText;
+				var responseObj = JSON.parse(responseText);
+				if (responseObj.status != undefined) {
+					if (responseObj.status == "ERROR") {
+						console.log("ERROR registering " + channelId.channelId + " => " + responseObj.message);
+					} else if (responseObj.status == "SUCCESS") {
+						console.log("SUCCESS registering " + channelId.channelId);
+					}
+				} else {
+					console.log("status not defined. Unknown error");
+				}
+			}
+		};
+		xhr.open("POST", "http://localhost/register/", true);
+		xhr.send(registerPayload);
 	});
 });
 

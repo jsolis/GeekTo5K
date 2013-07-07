@@ -2,7 +2,14 @@
   "manifest_version": 2,
   "name": "Geek to 5K",
   "version": "1.3",
-  "permissions": ["storage", "pushMessaging", "notifications", "tts", "syncFileSystem"],
+  "permissions": [
+    "storage", 
+    "pushMessaging", 
+    "notifications", 
+    "tts", 
+    "syncFileSystem",
+    "http://localhost/"
+  ],
   "app": {
     "background": {
       "scripts": ["main.js"]
