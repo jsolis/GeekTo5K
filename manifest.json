@@ -8,7 +8,7 @@
     "notifications", 
     "tts", 
     "syncFileSystem",
-    "http://localhost/"
+    "http://geek-to-5k.elasticbeanstalk.com/"
   ],
   "app": {
     "background": {
