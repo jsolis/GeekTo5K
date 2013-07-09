@@ -26,6 +26,13 @@ G25k = function() {
 				time: "1 hour ago"
 			});
 		}, 500);
+
+		setTimeout(function() {
+			self.addNewStatus({
+				activity: "running",
+				time: "1 hour ago"
+			});
+		}, 2000);
 	}
 
 	function buildCurrentActivity(data) {
