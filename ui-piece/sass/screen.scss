@@ -120,7 +120,7 @@ small {
 	#past {
 
 		li:first-child {
-			@include animation(ffx 0.5s);
+			@include animation(ffx 0.3s);
 			//@include transform(translate3d(0, 0, 0));
 		}
 	}
@@ -169,8 +169,8 @@ li {
 	padding: 20px;
 	@include display-box;
 
-	&:nth-child(2n) {
-		//background-color: $grey32;
+	&.odd {
+		background-color: $grey32;
 	}
 
 	h3 {

@@ -41,7 +41,7 @@ G25k = function() {
 			strong = document.createElement("strong"),
 			small = document.createElement("small");
 
-		h1.innerHTML = "Chris is currently";
+		h1.innerHTML = "Jason is currently";
 		strong.innerHTML = data.activity;
 		small.innerHTML = "for the past 1 minute";
 		h1.appendChild(strong);
@@ -84,6 +84,10 @@ G25k = function() {
 			setTimeout(function() {
 				activity.removeChild(oldActivity);
 			}, 300);
+
+			if (typeof(pastListing.firstChild.className) != "string") {
+				pastActivity.className = "odd";
+			}
 
 			pastListing.insertBefore(pastActivity, pastListing.firstChild);
 
