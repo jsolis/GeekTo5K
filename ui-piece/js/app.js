@@ -67,7 +67,7 @@ G25k = function() {
 			return this;
 		},
 		addNewStatus: function(data) {
-			appEle.className += " adding-activity";
+			appEle.className = "currently-" + data.activity + " adding-activity";
 			var currentActivity = buildCurrentActivity(data),
 				oldActivity = activity.getElementsByClassName("activity")[0],
 				pastActivity = buildPastActivity(data);
@@ -76,7 +76,6 @@ G25k = function() {
 
 			setTimeout(function() {
 				activity.removeChild(oldActivity);
-				appEle.className = "currently-" + data.activity;
 			}, 300);
 
 			pastListing.insertBefore(pastActivity, pastListing.firstChild);
