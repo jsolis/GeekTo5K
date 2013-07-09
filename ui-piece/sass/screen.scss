@@ -1,0 +1,200 @@
+@import "base";
+
+
+
+
+body {
+	font-family: "Roboto", Helvetica, Arial, sans-serif;
+	font-size: 100%;
+	background-color: $black;
+}
+
+
+
+// TYPOGRAPHY
+
+h1 {
+	font-size: 1.8rem;
+	font-weight: 100;
+	margin-bottom: 20px;
+
+	.currently-cycling & {
+		text-shadow: 0 0 45px $cyclingGreen;
+	}
+
+	.currently-running & {
+		text-shadow: 0 0 45px $runningOrange;
+	}
+
+	.currently-walking & {
+		text-shadow: 0 0 45px $walkingBlue;
+	}
+
+	strong {
+		font-family: "Roboto Condensed";
+		font-size: 3em;
+		font-weight: 700;
+		display: block;
+	}
+}
+
+
+h1, h3 {
+	transition: all 0.3s ease-out;
+
+	.currently-cycling & {
+		color: $cyclingGreen;
+	}
+
+	.currently-running & {
+		color: $runningOrange;
+	}
+
+	.currently-walking & {
+		color: $walkingBlue;
+	}
+}
+
+
+small {
+	color: $grey106;
+	font-style: italic;
+}
+
+
+
+
+
+// HEADER
+
+#header {
+	height: 80px;
+	padding-top: 20px;
+	transition: background-color 0.3s ease-out;
+
+	.currently-cycling & {
+		background-color: $cyclingGreen;
+	}
+
+	.currently-running & {
+		background-color: $runningOrange;
+	}
+
+	.currently-walking & {
+		background-color: $walkingBlue;
+	}
+}
+
+
+
+
+
+// CURRENT
+
+#current {
+	height: 215px;
+	text-align: center;
+	text-transform: uppercase;
+	position: relative;
+	overflow: hidden;
+	//display: none;
+}
+
+#activity {
+	width: 100%;
+}
+
+.activity {
+	padding: 30px 10px;
+}
+
+
+.adding-activity {
+	#activity {
+		
+		.activity:first-child {
+			@include animation(ffz 0.3s);	
+		}
+	}
+
+	#past {
+
+		li:first-child {
+			@include animation(ffx 0.5s);
+			//@include transform(translate3d(0, 0, 0));
+		}
+	}
+}
+
+
+
+@-webkit-keyframes ffz {
+	0% {
+		margin-top: -190px;
+	}
+	100% {
+		margin-top: 0;
+	}
+}
+
+@-webkit-keyframes ffx {
+	0% {
+		margin-top: -64px;
+	}
+	100% {
+		margin-top: 0;
+	}
+}
+
+
+
+
+// PAST
+
+#past {
+	position: relative;
+	overflow: hidden;
+	text-transform: uppercase;
+}
+
+ul {
+	margin: 0;
+	padding: 0;
+}
+
+
+li {
+	font-size: 1.5rem;
+	background-color: $grey44;
+	padding: 20px;
+	@include display-box;
+
+	&:nth-child(2n) {
+		//background-color: $grey32;
+	}
+
+	h3 {
+		@include box-flex(2);
+	}
+
+	small {
+		font-size: 1rem;
+		font-style: italic;
+		text-align: right;
+
+		@include box-flex(1);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

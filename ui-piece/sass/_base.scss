@@ -1,0 +1,45 @@
+@import "compass/reset";
+@import "compass";
+
+
+
+// VARIABLES
+
+	// COLORS
+
+	$black: #151515;
+	$grey44: #2c2c2c;
+	$grey32: #202020;
+	$grey106: #6a6a6a;
+
+
+	$walkingBlue: #39bee9;
+	$cyclingGreen: #c2e939;
+	$runningOrange: #e39713;
+
+
+
+
+
+	// DIMENSIONS
+
+
+
+
+
+
+// MIXINS
+
+
+
+$prefixes: webkit, moz, ms, o;
+
+@mixin animation($value) {
+	@for $i from 1 through length($prefixes) {
+		$prefix: nth($prefixes, $i);
+
+		-#{$prefix}-animation: $value;
+	}
+
+	animation: $value;
+}
