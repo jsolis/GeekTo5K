@@ -8,7 +8,8 @@ G25k = function() {
 		currentEle = null,
 		activityEle = null,
 		pastEle = null,
-		pastListing = null;
+		pastListing = null,
+		currentActivityValue = null;
 
 	function __construct__(context) {
 		self = context;
@@ -51,29 +52,45 @@ G25k = function() {
 			h1 = document.createElement("h1"),
 			strong = document.createElement("strong"),
 			small = document.createElement("small");
+			date = new Date();
 
-		h1.innerHTML = "Jason is currently";
+		h1.innerHTML = "Chris is currently";
 		strong.innerHTML = data.activity;
-		small.innerHTML = "for the past 1 minute";
+		small.innerHTML = buildTime(date);
+
 		h1.appendChild(strong);
 		container.appendChild(h1);
 		container.appendChild(small);
 		container.className = "activity";
+
+		container.addEventListener('click', function() {
+			chrome.tts.speak(data.activity);
+		});
+
 		return container;
 	}
 
 	function buildPastActivity(data) {
 		var li = document.createElement("li"),
 			h3 = document.createElement("h3"),
-			small = document.createElement("small");
+			small = document.createElement("small"),
+			date = new Date();
 
 
-		h3.innerHTML = "cycling";
-		small.innerHTML = "1 minute ago";
+		h3.innerHTML = data.activity;
+		small.innerHTML = buildTime(date);
 		li.appendChild(h3);
 		li.appendChild(small);
 
+		li.addEventListener('click', function() {
+			chrome.tts.speak(data.activity);
+		});
+
 		return li;
+	}
+
+	function buildTime(date) {
+		return date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
 	}
 
 	return {
@@ -87,7 +104,10 @@ G25k = function() {
 		addNewStatus: function(data) {
 			appEle.className = "currently-" + data.activity + " adding-activity";
 			var currentActivity = buildCurrentActivity(data),
-				oldActivity = activity.getElementsByClassName("activity")[0];
+				oldActivity = activity.getElementsByClassName("activity")[0],
+				oldActivityValue = currentActivityValue;
+
+			currentActivityValue = data.activity;
 			
 			activityEle.insertBefore(currentActivity, activityEle.firstChild);
 
@@ -96,7 +116,7 @@ G25k = function() {
 				appEle.className = "currently-" + data.activity;
 			}, 300);
 
-			this.addPastActivity(data);
+			if (oldActivityValue) this.addPastActivity({activity:oldActivityValue});
 			
 		},
 		addPastActivity: function(data) {
