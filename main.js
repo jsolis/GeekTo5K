@@ -135,9 +135,9 @@ function notify(icon, title, message) {
 }
 
 function createCBTrackerWindow() {
-	chrome.app.window.create('index.html', {
-		id: 'cbTrackerWin',
-		width: 300,
-		height: 300
+	chrome.app.window.create('ui-piece/index.html', {
+		id: 'geekTo5KWin',
+		width: 500,
+		height: 700
 	});
 }

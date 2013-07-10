@@ -18,21 +18,32 @@ G25k = function() {
 		pastEle = document.getElementById("past");
 		pastListing = pastEle.getElementsByTagName("ul")[0];
 
-
-
-		setTimeout(function() {
-			self.addNewStatus({
-				activity: "walking",
-				time: "1 hour ago"
+		// allow this view to be opened as normal HTML to ease development pains
+		if (chrome.pushMessaging) {
+			// Listens for push messages in the window
+			chrome.pushMessaging.onMessage.addListener(function(message) {
+				self.addNewStatus({activity:message.payload});
 			});
-		}, 500);
 
-		setTimeout(function() {
-			self.addNewStatus({
-				activity: "running",
-				time: "1 hour ago"
+			// get last known activity for this user
+			chrome.storage.sync.get('activity', function(items) {
+				self.addNewStatus({activity:items.activity});
 			});
-		}, 2000);
+		} else {
+			setTimeout(function() {
+				self.addNewStatus({
+					activity: "walking",
+					time: "1 hour ago"
+				});
+			}, 500);
+
+			setTimeout(function() {
+				self.addNewStatus({
+					activity: "running",
+					time: "1 hour ago"
+				});
+			}, 2000);
+		}
 	}
 
 	function buildCurrentActivity(data) {
