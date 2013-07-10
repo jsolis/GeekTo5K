@@ -90,7 +90,11 @@ G25k = function() {
 	}
 
 	function buildTime(date) {
-		return date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
+		var min = date.getMinutes().toString(),
+			sec = date.getSeconds().toString();
+		min = (min[1]?min:"0"+min[0]);
+		sec = (sec[1]?sec:"0"+sec[0]);
+		return date.getHours() + ':' + min + ':' + sec;
 	}
 
 	return {
