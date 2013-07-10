@@ -38,7 +38,9 @@ chrome.app.runtime.onLaunched.addListener(function(launchData) {
 // Listens for push messages from GCM Google Cloud Messaging
 chrome.pushMessaging.onMessage.addListener(function(message) {
 	// pop notification using the web notification API
-	notify('cb.jpg', 'Chris is doing something different', 'Chris is now ' + message.payload);
+	if (message.payload) {
+		notify('cb.jpg', 'Chris is doing something different', 'Chris is now ' + message.payload);
+	}
 
 	// store the last message this user received
 	chrome.storage.sync.set({'activity':message.payload}, function() {
@@ -48,8 +50,7 @@ chrome.pushMessaging.onMessage.addListener(function(message) {
 	// store it using syncFileSystem to Google Drive
 	chrome.syncFileSystem.requestFileSystem(function(fs) {
 		if (chrome.runtime.lastError) {
-			notify('cb.jpg', 'syncFileSystem Error', chrome.runtime.lastError.message);
-			console.log('syncFileSystem Error');
+			console.log('syncFileSystem Error: ' + chrome.runtime.lastError.message);
 		} else {
 			fs.root.getFile("geekTo5KHistory.txt", {create: true},
 				function(entry) {
