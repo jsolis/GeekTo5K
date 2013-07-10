@@ -87,22 +87,30 @@ G25k = function() {
 		addNewStatus: function(data) {
 			appEle.className = "currently-" + data.activity + " adding-activity";
 			var currentActivity = buildCurrentActivity(data),
-				oldActivity = activity.getElementsByClassName("activity")[0],
-				pastActivity = buildPastActivity(data);
+				oldActivity = activity.getElementsByClassName("activity")[0];
 			
 			activityEle.insertBefore(currentActivity, activityEle.firstChild);
 
 			setTimeout(function() {
 				activity.removeChild(oldActivity);
+				appEle.className = "currently-" + data.activity;
 			}, 300);
 
+			this.addPastActivity(data);
+			
+		},
+		addPastActivity: function(data) {
+			var pastActivityEle = buildPastActivity(data);
+
 			if (typeof(pastListing.firstChild.className) != "string") {
-				pastActivity.className = "odd";
+				pastActivityEle.className = "odd";
 			}
 
-			pastListing.insertBefore(pastActivity, pastListing.firstChild);
-
-			
+			pastListing.insertBefore(pastActivityEle, pastListing.firstChild);
+		},
+		toggleMap: function(event) {
+			openSideView();
+			event.preventDefault();
 		}
 	};
 }();
