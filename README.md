@@ -13,3 +13,7 @@ This app shows off using:
 
 The server component code and the Android app which sends the push messages via GCM can be found at this repo:
 https://github.com/pequots34/GeekTo5k
+
+The Chrome Packaged app can be downloaded from the Chrome Web Store here:
+https://chrome.google.com/webstore/detail/geek-to-5k/mdidlpphalgcdbfaoegncdpoolcokkpf
+
