@@ -5,6 +5,7 @@ G25k = function() {
 	var self = null,
 		initialized = false,
 		appEle = null,
+		heroEle = null,
 		currentEle = null,
 		activityEle = null,
 		pastEle = null,
@@ -13,6 +14,7 @@ G25k = function() {
 	function __construct__(context) {
 		self = context;
 		appEle = document.getElementById("g25k");
+		heroEle = document.getElementById("hero-image");
 		currentEle = document.getElementById("current");
 		activityEle = document.getElementById("activity");
 		pastEle = document.getElementById("past");
@@ -43,6 +45,20 @@ G25k = function() {
 					time: "1 hour ago"
 				});
 			}, 2000);
+
+			setTimeout(function() {
+				self.addNewStatus({
+					activity: "cycling",
+					time: "1 hour ago"
+				});
+			}, 4000);
+
+			setTimeout(function() {
+				self.addNewStatus({
+					activity: "standing",
+					time: "1 hour ago"
+				});
+			}, 5500);
 		}
 	}
 
@@ -76,6 +92,13 @@ G25k = function() {
 		return li;
 	}
 
+	function buildHeroImage(data) {
+		var node = document.createElement("div");
+
+		node.className = "activity-image " + data.activity;
+		return node;
+	}
+
 	return {
 		init: function() {
 			if (!initialized) {
@@ -89,13 +112,21 @@ G25k = function() {
 			var currentActivity = buildCurrentActivity(data),
 				oldActivity = activity.getElementsByClassName("activity")[0];
 			
-			activityEle.insertBefore(currentActivity, activityEle.firstChild);
+			if (!oldActivity) {
+				activityEle.appendChild(currentActivity);
+			} else {
+				activityEle.insertBefore(currentActivity, activityEle.firstChild);
+			}
 
 			setTimeout(function() {
-				activity.removeChild(oldActivity);
+				if (oldActivity) {
+					activity.removeChild(oldActivity);	
+				}
+
 				appEle.className = "currently-" + data.activity;
 			}, 300);
 
+			this.addHeroImage(data);
 			this.addPastActivity(data);
 			
 		},
@@ -107,6 +138,19 @@ G25k = function() {
 			}
 
 			pastListing.insertBefore(pastActivityEle, pastListing.firstChild);
+		},
+		addHeroImage: function(data) {
+			var heroImage = buildHeroImage(data),
+				oldHeroImage = heroEle.getElementsByClassName("activity-image")[0];
+
+			if (!oldHeroImage) {
+				heroEle.appendChild(heroImage);
+			} else {
+				heroEle.insertBefore(heroImage, heroEle.firstChild);
+				setTimeout(function() {
+					heroEle.removeChild(oldHeroImage);	
+				}, 300);
+			}
 		},
 		toggleMap: function(event) {
 			openSideView();

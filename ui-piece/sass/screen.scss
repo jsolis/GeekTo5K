@@ -30,6 +30,10 @@ h1 {
 		text-shadow: 0 0 45px $walkingBlue;
 	}
 
+	.currently-standing & {
+		text-shadow: 0 0 45px $standingBlue;
+	}
+
 	strong {
 		font-family: "Roboto Condensed";
 		font-size: 3em;
@@ -53,6 +57,10 @@ h1, h3 {
 	.currently-walking & {
 		color: $walkingBlue;
 	}
+
+	.currently-standing & {
+		color: $standingBlue;
+	}
 }
 
 
@@ -68,10 +76,11 @@ small {
 // HEADER
 
 #header {
-	height: 80px;
-	padding-top: 20px;
+	height: 30px;
 	transition: background-color 0.3s ease-out;
+}
 
+#header, #hero {
 	.currently-cycling & {
 		background-color: $cyclingGreen;
 	}
@@ -82,6 +91,48 @@ small {
 
 	.currently-walking & {
 		background-color: $walkingBlue;
+	}
+
+	.currently-standing & {
+		background-color: $standingBlue;
+	}
+}
+
+#hero {
+	height: 80px;
+	position: relative;
+	transition: background-color 0.3s ease-out;
+}
+
+#hero-image {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+.activity-image {
+	background: url(../img/icon-running.png) 50% 0 no-repeat;
+	@include background-size(contain);
+	width: 100%;
+	height: 100%;
+	float: left;
+
+	&.cycling {
+		//background: $cyclingGreen;
+	}
+
+	&.running {
+		//background: $runningOrange;
+	}
+
+	&.walking {
+		//background: $walkingBlue;
+	}
+
+	&.standing {
+		//background: $standingBlue;
 	}
 }
 
@@ -110,6 +161,20 @@ small {
 
 
 .adding-activity {
+
+	#hero-image {
+		width: 200%;
+
+		.activity-image {
+			width: 50%;
+
+			&:first-child {
+				float: left;
+				@include animation(ffv 0.5s);
+			}
+		}
+	}
+
 	#activity {
 		
 		.activity:first-child {
@@ -126,6 +191,17 @@ small {
 	}
 }
 
+
+
+
+@-webkit-keyframes ffv {
+	0% {
+		margin-left: -100%;
+	}
+	100% {
+		margin-left: 0;
+	}
+}
 
 
 @-webkit-keyframes ffz {
