@@ -141,3 +141,11 @@ function createCBTrackerWindow() {
 		height: 700
 	});
 }
+
+function createMapWindow() {
+	chrome.app.window.create('map.html', {
+		id: 'geekTo5KMapWin',
+		width: 500,
+		height: 700
+	});
+}

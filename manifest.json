@@ -8,6 +8,7 @@
     "notifications", 
     "tts", 
     "syncFileSystem",
+    "webview",
     "http://geek-to-5k.elasticbeanstalk.com/"
   ],
   "app": {
