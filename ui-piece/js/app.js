@@ -126,7 +126,7 @@ G25k = function() {
 				appEle.className = "currently-" + data.activity;
 			}, 300);
 
-			this.addHeroImage(data);
+			this.addHeroImage(data);	
 			this.addPastActivity(data);
 			
 		},
