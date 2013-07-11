@@ -34,33 +34,41 @@ G25k = function() {
 				self.addNewStatus({activity:items.activity});
 			});
 		} else {
-			setTimeout(function() {
-				self.addNewStatus({
-					activity: "walking",
-					time: "1 hour ago"
-				});
-			}, 500);
-
-			setTimeout(function() {
-				self.addNewStatus({
-					activity: "running",
-					time: "1 hour ago"
-				});
-			}, 2000);
 
 			setTimeout(function() {
 				self.addNewStatus({
 					activity: "cycling",
 					time: "1 hour ago"
 				});
-			}, 4000);
+			}, 500);
+
+			setTimeout(function() {
+				self.addNewStatus({
+					activity: "on foot",
+					time: "1 hour ago"
+				});
+			}, 2000);
+
+			setTimeout(function() {
+				self.addNewStatus({
+					activity: "driving",
+					time: "1 hour ago"
+				});
+			}, 3000);
 
 			setTimeout(function() {
 				self.addNewStatus({
 					activity: "standing",
 					time: "1 hour ago"
 				});
-			}, 5500);
+			}, 6500);
+
+			setTimeout(function() {
+				self.addNewStatus({
+					activity: "standby",
+					time: "1 hour ago"
+				});
+			}, 8500);
 		}
 	}
 
@@ -70,13 +78,20 @@ G25k = function() {
 			strong = document.createElement("strong"),
 			small = document.createElement("small");
 
-		h1.innerHTML = "Jason is currently";
-		strong.innerHTML = data.activity;
-		small.innerHTML = "for the past 1 minute";
+		if (data.activity != "standby") {
+			h1.innerHTML = "Jason is currently";
+			strong.innerHTML = data.activity;
+			small.innerHTML = "for the past 1 minute";			
+		} else {
+			h1.innerHTML = "Please stand by"
+			strong.innerHTML = "Searching";
+		}
+
 		h1.appendChild(strong);
 		container.appendChild(h1);
 		container.appendChild(small);
 		container.className = "activity";
+
 		return container;
 	}
 
@@ -95,9 +110,10 @@ G25k = function() {
 	}
 
 	function buildHeroImage(data) {
-		var node = document.createElement("div");
+		var node = document.createElement("div"),
+			activityName = data.activity.replace(/\ /g, "-");
 
-		node.className = "activity-image " + data.activity;
+		node.className = "activity-image " + activityName;
 		return node;
 	}
 
@@ -110,9 +126,13 @@ G25k = function() {
 			return this;
 		},
 		addNewStatus: function(data) {
-			appEle.className = "currently-" + data.activity + " adding-activity";
 			var currentActivity = buildCurrentActivity(data),
-				oldActivity = activity.getElementsByClassName("activity")[0];
+				oldActivity = activity.getElementsByClassName("activity")[0],
+				activityName = data.activity.replace(/\ /g, "-");
+
+			appEle.className = "currently-" + activityName + " adding-activity";
+
+
 			
 			if (!oldActivity) {
 				activityEle.appendChild(currentActivity);
@@ -125,7 +145,7 @@ G25k = function() {
 					activity.removeChild(oldActivity);	
 				}
 
-				appEle.className = "currently-" + data.activity;
+				appEle.className = "currently-" + activityName;
 			}, 300);
 
 			this.addHeroImage(data);	
@@ -133,9 +153,11 @@ G25k = function() {
 			
 		},
 		addPastActivity: function(data) {
-			var pastActivityEle = buildPastActivity(data);
+			var pastActivityEle = buildPastActivity(data),
+				firstPastItem = pastListing.getElementsByTagName("li")[0],
+				className = firstPastItem ? firstPastItem.className : null;
 
-			if (typeof(pastListing.firstChild.className) != "string") {
+			if (className != "odd") {
 				pastActivityEle.className = "odd";
 			}
 
