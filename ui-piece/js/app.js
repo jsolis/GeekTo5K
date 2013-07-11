@@ -172,7 +172,8 @@ G25k = function() {
 			}, 300);
 
 			this.addHeroImage(data);	
-			if (oldActivityValue && oldActivityValue != 'standby') this.addPastActivity({activity:oldActivityValue});
+			//if (oldActivityValue && oldActivityValue != 'standby') this.addPastActivity({activity:oldActivityValue});
+			if (oldActivityValue) this.addPastActivity({activity:oldActivityValue});
 			
 		},
 		addPastActivity: function(data) {
