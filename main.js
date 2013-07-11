@@ -152,3 +152,11 @@ function createMapWindow() {
 		height: 700
 	});
 }
+
+function createEggWindow() {
+	chrome.app.window.create('egg.html', {
+		id: 'geekTo5KEggWin',
+		width: 500,
+		height: 700
+	});
+}
