@@ -94,6 +94,10 @@ G25k = function() {
 		container.appendChild(small);
 		container.className = "activity";
 
+		container.addEventListener('click', function() {
+			chrome.tts.speak(data.activity);
+		});
+
 		return container;
 	}
 
@@ -104,10 +108,14 @@ G25k = function() {
 			date = new Date();
 
 
-		h3.innerHTML = "cycling";
+		h3.innerHTML = data.activity;
 		small.innerHTML = buildTime(date);
 		li.appendChild(h3);
 		li.appendChild(small);
+
+		li.addEventListener('click', function() {
+			chrome.tts.speak(data.activity);
+		});
 
 		return li;
 	}
@@ -140,11 +148,12 @@ G25k = function() {
 		addNewStatus: function(data) {
 			var currentActivity = buildCurrentActivity(data),
 				oldActivity = activity.getElementsByClassName("activity")[0],
+				oldActivityValue = currentActivityValue,
 				activityName = data.activity.replace(/\ /g, "-");
 
 			appEle.className = "currently-" + activityName + " adding-activity";
 
-
+			currentActivityValue = data.activity;
 			
 			if (!oldActivity) {
 				activityEle.appendChild(currentActivity);
@@ -161,7 +170,7 @@ G25k = function() {
 			}, 300);
 
 			this.addHeroImage(data);	
-			this.addPastActivity(data);
+			if (oldActivityValue) this.addPastActivity({activity:oldActivityValue});
 			
 		},
 		addPastActivity: function(data) {
