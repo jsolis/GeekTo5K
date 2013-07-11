@@ -23,8 +23,10 @@ G25k = function() {
 		// allow this view to be opened as normal HTML to ease development pains
 		if (chrome.pushMessaging) {
 			// Listens for push messages in the window
+			// {"elapsed":82443399,"time":1373538273307,"username":"pequots34","type":0,"activity":"driving"}
 			chrome.pushMessaging.onMessage.addListener(function(message) {
-				self.addNewStatus({activity:message.payload});
+				var payload = JSON.parse(message.payload);
+				self.addNewStatus({activity:payload.activity});
 			});
 
 			// get last known activity for this user

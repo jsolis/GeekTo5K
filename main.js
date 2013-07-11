@@ -38,41 +38,43 @@ chrome.app.runtime.onLaunched.addListener(function(launchData) {
 // Listens for push messages from GCM Google Cloud Messaging
 chrome.pushMessaging.onMessage.addListener(function(message) {
 	// pop notification using the web notification API
+	// {"elapsed":82443399,"time":1373538273307,"username":"pequots34","type":0,"activity":"driving"}
 	if (message.payload) {
-		notify('cb.jpg', 'Chris is doing something different', 'Chris is now ' + message.payload);
+		var payload = JSON.parse(message.payload);
+		notify('cb.jpg', 'Chris is doing something different', 'Chris is now ' + payload.activity);
+		
+		// store the last message this user received
+		chrome.storage.sync.set({'activity':payload.activity}, function() {
+			console.log('saved message via chrome.storage.sync');
+		});
+
+		// store it using syncFileSystem to Google Drive
+		chrome.syncFileSystem.requestFileSystem(function(fs) {
+			if (chrome.runtime.lastError) {
+				console.log('syncFileSystem Error: ' + chrome.runtime.lastError.message);
+			} else {
+				fs.root.getFile("geekTo5KHistory.txt", {create: true},
+					function(entry) {
+						entry.createWriter(function(writer) {
+							writer.onwriteend = function() {
+								console.log('syncFileSystem was succesfull');
+							};
+							writer.onerror = function(e) {
+								console.log('Write failed: ' + e.toString());
+							};
+							var date = new Date();
+							var content = message.payload + ',' + date.yyyymmddhhMMss() + "\n";
+							console.log('trying to write: ' + content);
+							var blob = new Blob([content], {type: 'text/plain'});
+							writer.seek(writer.length);
+							writer.write(blob);
+						}, errorHandler);
+					},
+					errorHandler
+				);
+			}
+		});
 	}
-
-	// store the last message this user received
-	chrome.storage.sync.set({'activity':message.payload}, function() {
-		console.log('saved message via chrome.storage.sync');
-	});
-
-	// store it using syncFileSystem to Google Drive
-	chrome.syncFileSystem.requestFileSystem(function(fs) {
-		if (chrome.runtime.lastError) {
-			console.log('syncFileSystem Error: ' + chrome.runtime.lastError.message);
-		} else {
-			fs.root.getFile("geekTo5KHistory.txt", {create: true},
-				function(entry) {
-					entry.createWriter(function(writer) {
-						writer.onwriteend = function() {
-							console.log('syncFileSystem was succesfull');
-						};
-						writer.onerror = function(e) {
-							console.log('Write failed: ' + e.toString());
-						};
-						var date = new Date();
-						var content = message.payload + ',' + date.yyyymmddhhMMss() + "\n";
-						console.log('trying to write: ' + content);
-						var blob = new Blob([content], {type: 'text/plain'});
-						writer.seek(writer.length);
-						writer.write(blob);
-					}, errorHandler);
-				},
-				errorHandler
-			);
-		}
-	});
 });
 
 Date.prototype.yyyymmddhhMMss = function() {
