@@ -39,6 +39,7 @@ body {
 // TYPOGRAPHY
 
 h1 {
+	@include animation(fadeText 1s infinite);
 	font-size: 1.8rem;
 	font-weight: 100;
 	margin-bottom: 20px;
@@ -56,6 +57,7 @@ h1 {
 	}
 
 	.currently-standby & {
+		-webkit-animation-duration: 0.3s;
 		text-shadow: 0 0 45px $standbyGrey;
 	}
 
@@ -265,6 +267,19 @@ small {
 	}
 }
 
+
+
+@-webkit-keyframes fadeText {
+	0% {
+		opacity: 0.75;
+	}
+	50% {
+		opacity: 1.0;
+	}
+	100% {
+		opacity: 0.75;
+	}
+}
 
 
 
