@@ -47,16 +47,20 @@ h1 {
 		text-shadow: 0 0 45px $cyclingGreen;
 	}
 
-	.currently-running & {
-		text-shadow: 0 0 45px $runningOrange;
-	}
-
-	.currently-walking & {
-		text-shadow: 0 0 45px $walkingBlue;
+	.currently-on-foot & {
+		text-shadow: 0 0 45px $onFootOrange;
 	}
 
 	.currently-standing & {
 		text-shadow: 0 0 45px $standingBlue;
+	}
+
+	.currently-standby & {
+		text-shadow: 0 0 45px $standbyGrey;
+	}
+
+	.currently-driving & {
+		text-shadow: 0 0 45px $drivingRed;
 	}
 
 	strong {
@@ -75,17 +79,22 @@ h1, h3 {
 		color: $cyclingGreen;
 	}
 
-	.currently-running & {
-		color: $runningOrange;
-	}
-
-	.currently-walking & {
-		color: $walkingBlue;
+	.currently-on-foot & {
+		color: $onFootOrange;
 	}
 
 	.currently-standing & {
 		color: $standingBlue;
 	}
+
+	.currently-standby & {
+		color: $standbyGrey;
+	}
+
+	.currently-driving & {
+		color: $drivingRed;
+	}
+
 }
 
 
@@ -110,16 +119,20 @@ small {
 		background-color: $cyclingGreen;
 	}
 
-	.currently-running & {
-		background-color: $runningOrange;
-	}
-
-	.currently-walking & {
-		background-color: $walkingBlue;
+	.currently-on-foot & {
+		background-color: $onFootOrange;
 	}
 
 	.currently-standing & {
 		background-color: $standingBlue;
+	}
+
+	.currently-standby & {
+		background-color: $standbyGrey;
+	}
+
+	.currently-driving & {
+		background-color: $drivingRed;
 	}
 }
 
@@ -138,26 +151,31 @@ small {
 }
 
 .activity-image {
-	background: url(../img/icon-running.png) 50% 0 no-repeat;
+	background-position: 50% 0;
+	background-repeat: no-repeat;
 	@include background-size(contain);
 	width: 100%;
 	height: 100%;
 	float: left;
 
 	&.cycling {
-		//background: $cyclingGreen;
+		background-image: url(../img/icon-cycling.png);
 	}
 
-	&.running {
-		//background: $runningOrange;
-	}
-
-	&.walking {
-		//background: $walkingBlue;
+	&.on-foot {
+		background-image: url(../img/icon-running.png);
 	}
 
 	&.standing {
-		//background: $standingBlue;
+		background-image: url(../img/icon-standing.png);
+	}
+
+	&.standby {
+		background-image: url(../img/icon-standby.png);
+	}
+
+	&.driving {
+		background-image: url(../img/icon-driving.png);
 	}
 }
 
@@ -195,7 +213,7 @@ small {
 
 			&:first-child {
 				float: left;
-				@include animation(ffv 0.5s);
+				@include animation(ffv 0.3s);
 			}
 		}
 	}
