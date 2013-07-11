@@ -1,6 +1,11 @@
 @import "base";
 
-
+html, body, #g25k {
+	width: 100%;
+	height: 100%;
+	position: relative;
+	overflow: hidden;
+}
 
 
 body {
@@ -8,6 +13,7 @@ body {
 	font-size: 100%;
 	background-color: $black;
 }
+
 
 
 
@@ -228,8 +234,11 @@ small {
 // PAST
 
 #past {
-	position: relative;
-	overflow: hidden;
+	width: 100%;
+	position: absolute;
+	top: 325px;
+	bottom: 0;
+	overflow: scroll;
 	text-transform: uppercase;
 }
 
