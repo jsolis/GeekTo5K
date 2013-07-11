@@ -287,9 +287,11 @@ small {
 
 #past {
 	width: 100%;
+	padding-right: 15px;
+	padding-bottom: 15px;
 	position: absolute;
 	top: 325px;
-	bottom: 0;
+	bottom: 15px;
 	overflow: scroll;
 	text-transform: uppercase;
 }
