@@ -146,6 +146,8 @@ G25k = function() {
 			return this;
 		},
 		addNewStatus: function(data) {
+			data.activity = (data.activity == 'unknown' || data.activity == 'tilting') ? 'standby' : data.activity;
+
 			var currentActivity = buildCurrentActivity(data),
 				oldActivity = activity.getElementsByClassName("activity")[0],
 				oldActivityValue = currentActivityValue,
@@ -170,7 +172,7 @@ G25k = function() {
 			}, 300);
 
 			this.addHeroImage(data);	
-			if (oldActivityValue) this.addPastActivity({activity:oldActivityValue});
+			if (oldActivityValue && oldActivityValue != 'standby') this.addPastActivity({activity:oldActivityValue});
 			
 		},
 		addPastActivity: function(data) {
