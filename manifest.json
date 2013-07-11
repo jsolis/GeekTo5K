@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Geek to 5K",
-  "version": "1.4",
+  "version": "1.5",
   "permissions": [
     "storage", 
     "pushMessaging", 
@@ -18,5 +18,5 @@
   },
   "key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCJSW5WYQE9aTNEsVTxAbJ7ItHrNRqrxPv7zdSjdBAnJqcdLNj8ZYNHLF4++N66aOylz8ky9hKwzlUAGlEDXPNTrxc9n3FwGD+RN6DWg419HJQLfxUtIUbAFjKJtPKrBH8Huq0Xb+ANkMDoVjoXYj4QuDp/KaX4B/FUl3g+bjxD1QIDAQAB",
   "minimum_chrome_version": "23",
-  "icons": {"16":"cb.jpg","128":"cb.jpg"}
+  "icons": {"16":"ui-piece/img/logo.png","128":"ui-piece/img/logo.png"}
 }
