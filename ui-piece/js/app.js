@@ -32,7 +32,9 @@ G25k = function() {
 
 			// get last known activity for this user
 			chrome.storage.sync.get('activity', function(items) {
-				self.addNewStatus({activity:items.activity});
+				if (items.activity) {
+					self.addNewStatus({activity:items.activity});
+				}
 			});
 		} else {
 
