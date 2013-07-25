@@ -9,7 +9,7 @@
     "tts", 
     "syncFileSystem",
     "webview",
-    "http://geek-to-5k.elasticbeanstalk.com/"
+    "http://geekto5k.elasticbeanstalk.com/"
   ],
   "app": {
     "background": {

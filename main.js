@@ -21,7 +21,7 @@ chrome.runtime.onInstalled.addListener(function() {
 				}
 			}
 		};
-		xhr.open("POST", "http://geek-to-5k.elasticbeanstalk.com/register/", true);
+		xhr.open("POST", "http://geekto5k.elasticbeanstalk.com/register", true);
 		xhr.send(registerPayload);
 	});
 });
